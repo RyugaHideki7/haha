@@ -1,8 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "/src/dist/css/style.css";
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #50D38D;
+}
+body::-webkit-scrollbar:horizontal {
+  height: 0px;
+}
+.input-group :where(span){
+  @apply bg-green-ish;
+  @apply text-black;
+}
+.input{
+  @apply text-[16px];
+}
+.input.input-bordered{
+  @apply rounded-r-lg;
+}
+.input.input-bordered.mr-3{
+  @apply rounded-l-lg;
+}
+.input.input-bordered.text-eerie-black{
+  @apply rounded-r-none;
+}
+.btn{
+  @apply rounded-lg;
+}
+@layer base {
+  html{
+    @apply font-yanone;
+  }
+}
+section{
+  position: relative;
+}
+@layer utilities {
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'reg', -apple-system, BlinkMacSystemFont, "Roboto", Segoe UI, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
