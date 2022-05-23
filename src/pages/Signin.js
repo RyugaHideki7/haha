@@ -4,17 +4,17 @@ import {useNavigate} from "react-router-dom";
 import signin from "../images/signin.svg";
 import axios from "../Api/axios";
 import {useRef, useState, useEffect, useContext} from 'react';
-import AuthContext from "./../Context/AuthProvider";
+import AuthContext from "../Context/AuthProvider";
 
 const LOGIN_URL = 'http://localhost:8080/api/authenticate';
 
-function Signin() {
+const Signin =() => {
     const {setAuth} = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
 
-    const [user, setUser] = useState('');
-    const [pwd, setPwd] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
@@ -24,44 +24,32 @@ function Signin() {
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd])
+    }, [username, password])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
     
 
         try {
-            axios.post('http://localhost:8080/api/authenticate', JSON.stringify({user, pwd}) )
-                .then(response => {
-                    console.log(JSON.stringify(response.data));
+            const response = await axios.post(LOGIN_URL,
+                JSON.stringify({ username, password }),
+                {
+                    headers: { 'Content-Type': 'application/json',
+                    'Authorization': 'Basic Y2xpZW50OnNlY3JldA==',
+                },
+                    withCredentials: true
+                }
+              );
+        
+                    console.log(JSON.stringify(response?.data));
                     //console.log(JSON.stringify(response));
-                    const accessToken = response.data.accessToken;
+                    const accessToken = response?.data?.accessToken;
                     const roles = response.data.roles;
-                    setAuth({user, pwd, roles, accessToken});
-                    setUser('');
-                    setPwd('');
+                    setAuth({username, password, roles, accessToken});
+                    setUsername('');
+                    setPassword('');
                     setSuccess(true);
-                }).catch((err) => {
-                    if (!err.response) {
-                        setErrMsg('No Server Response');
-                        
-                    } else if (err.response.status === 400) {
-                        setErrMsg('Missing Username or Password');
-                        
-                    } else if (err.response.status === 401) {
-                        setErrMsg('Unauthorized');
-                        
-                    } else if (err.response.status === 404) {
-                        setErrMsg('NOT FOUND');
-                        
-                    } else {
-                        setErrMsg('Login Failed');
-                        
-                    }
-                    errRef.current.focus();
-                    
-
-                }); 
+                
             
         } catch (err) {
             if (!err.response) {
@@ -129,8 +117,8 @@ function Signin() {
                                            id="email"
                                            ref={userRef}
                                            autoComplete="off"
-                                           onChange={(e) => setUser(e.target.value)}
-                                           value={user}
+                                           onChange={(e) => setUsername(e.target.value)}
+                                           value={username}
                                            required
                                            placeholder="Email" className="input input-bordered w-full"/>
                                 </label>
@@ -143,8 +131,8 @@ function Signin() {
                                     <span><i className="iconly-Password text-3xl text-white"></i></span>
                                     <input type="password"
                                            id="password"
-                                           onChange={(e) => setPwd(e.target.value)}
-                                           value={pwd}
+                                           onChange={(e) => setPassword(e.target.value)}
+                                           value={password}
                                            required
                                            placeholder="Mot de passe"
                                            className="input input-bordered w-full"/>

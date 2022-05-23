@@ -39,7 +39,7 @@ function Hero() {
                         Réservez une consultation physique chez un professionnel de santé
                     </h1>
                     <h2 className="relative text-purple-cadet text-xl w-full font-light p-0 ml-0 mt-5 ">
-                        Avec quelques click vous pouvez trouver votre medecin n'importe qu'il est
+                        Avec quelques cliques vous pouvez trouver votre medecin n'importe qu'il est
                     </h2>
                     <Select/>
                 </div>

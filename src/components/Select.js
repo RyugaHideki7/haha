@@ -4,13 +4,13 @@ function Select() {
             className="relative grid grid-cols-2 w-full divide-x mt-10 place-items-center place-content-center divide-none">
             <div className=" form-contro w-full">
                 <div className="input-group">
-                    <input type="text" placeholder="Nom,spécialité,établissement…"
+                    <input type="text" placeholder="Nom,spécialité"
                            className="input input-bordered mr-3 w-full max-w-xs"/>
                 </div>
             </div>
             <div className="form-control w-full">
                 <div className="input-group ">
-                    <input type="text" placeholder="Où ?…"
+                    <input type="text" placeholder="Ville"
                            className="input input-bordered text-eerie-black w-full max-w-xs"/>
                     <button
                         className="btn btn-square transition ease-in-out delay-150 bg-green-ish hover:-translate-y-1 hover:bg-emerald duration-300 border-none">
