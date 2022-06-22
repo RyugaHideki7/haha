@@ -1,13 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "/src/dist/css/style.css";
+
+.navigation ul li{
+    list-style: none;
+    display: inline;
+    padding:20px;
+
+}
+.error {
+    color: #D62246;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+a.normal-case {
+    font-family: 'Twinkle Star', cursive;
+}
+
+.places-container {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 300px;
+}
+
+.map-container {
+    @apply rounded-lg;
+    width: 100%;
+    height: 100%;
+}
+
+.combobox-input {
+    width: 100%;
+    padding: 0.5rem;
+}
+
+#add {
+    color: #222222;
+}
+
+#add::-webkit-file-upload-button {
+    visibility: hidden;
+    position: fixed;
+}
+
+#add::before {
+    content: 'Ajoutez un fichier';
+    display: inline-block;
+    background: #2FBAE6;
+    @apply rounded-[3px];
+    padding: 5px 8px;
+    margin-right: 10px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    @apply text-[1rem];
+    @apply text-white;
+}
+
+#add:hover::before {
+    border-color: black;
+}
+
+#add:hover::before {
+    background: #48b97a;
+}
+
+#add:active {
+    outline: 0;
+}
+
+#add:active::before {
+    background: #46bd7e;
+}
+
+#doctor::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+#doctor::-webkit-scrollbar-track {
+    background: #1e1e24;
+}
+
+#doctor::-webkit-scrollbar-thumb {
+    background: #2FBAE6;
+    border-radius: 2px;
+}
+
+#doctor::-webkit-scrollbar-thumb:hover {
+    background: #46bd7e;
+    border-radius: 2px;
+}
+
+#doctor::-webkit-scrollbar:horizontal {
+    height: 0rem;
+}
+
+.suggestions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #d4d4d4;
+    background-color: #f7f7f7;
+    border-radius: 0 0 10px 10px;
+}
+
+.suggestions li {
+    list-style: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+body::-webkit-scrollbar {
+    width: 0.25rem;
+}
+body::-webkit-scrollbar:hover {
+    width: 0.5rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #50D38D;
+    border-radius: 2px;
+}
+
+body::-webkit-scrollbar:horizontal {
+    height: 0px;
+}
+
+.input-group :where(span) {
+    @apply bg-green-ish;
+    @apply text-black;
+}
+
+.input {
+    @apply text-[16px];
+}
+
+.input.input-bordered {
+    @apply rounded-r-lg;
+}
+
+.input.input-bordered.mr-3 {
+    @apply rounded-l-lg;
+}
+
+.input.input-bordered.text-eerie-black {
+    @apply rounded-r-none;
+}
+
+.btn {
+    @apply rounded-2xl;
+    /*font-family: Comfortaa, cursive;*/
+}
+
+section {
+    position: relative;
+}
+
+@layer utilities {
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: 'reg', -apple-system, BlinkMacSystemFont, "Roboto", Segoe UI, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
