@@ -13,30 +13,32 @@ async function getCoordinates(adr) {
     return {lat, lng}
 }
 
-export default function Maps({adresse}) {
+export default function Maps(props) {
+    console.log(props)
     const {isLoaded} = useLoadScript({
         googleMapsApiKey: "AIzaSyBA8C_04Mp61sdNIcZxOZdbl703cA6DOjM",
     });
 
     if (!isLoaded) return <div>Loading...</div>;
-    return <Map adresse={adresse}/>;
+    return <Map adresse={props.adresse}/>;
 }
 
-function Map({adresse}) {
+function Map(props) {
+
     const[center,setCenter]=useState(null);
     //const adr='Bejaia, Béjaïa, Algérie';
 
-    //console.log(cord);//[Object.keys(cord)[0]]ef
+    const adr= props.adresse?.description??'Bejaia, Béjaïa, Algérie';
     useEffect(() => {
-        getCoordinates(adresse).then(value=>{
+        getCoordinates(adr).then(value=>{
             setCenter({
                 lat:value[Object.keys(value)[0]],
                 lng:value[Object.keys(value)[1]]})
 
             ;})
 
-    },[adresse]);
-    console.log(center)
+    },[adr]);
+    console.log(props.adresse)
 
     return (<>
         {center && <GoogleMap zoom={15} center={center} mapContainerClassName="map-container">

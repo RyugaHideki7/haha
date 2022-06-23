@@ -209,7 +209,7 @@ function Hero() {
 
                         </div>
 
-                        <img src={docpro} alt="doctor-pro" className="opacity-1 w-11/12 h-11/12 relative"/>
+                        <img src={docpro} alt="doctor-pro" className="opacity-1 w-[80%] relative"/>
                     </div>
                 </div>
             </div>

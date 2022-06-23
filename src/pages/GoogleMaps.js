@@ -29,19 +29,22 @@ function loadScript(src, position, id) {
 
 const autocompleteService = { current: null };
 
-export default function GoogleMaps() {
+export default function GoogleMaps(props) {
+    console.log(props)
+    /*
     const formik = useFormik({
         initialValues: {
-            adresse: [],
+            adresse: null,
         },
         validationSchema: Yup.object({
-            adresse: Yup.string().required('Champ obligatoire'),
+            adresse: Yup.mixed().required('Champ obligatoire'),
         }),
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
         },
     });
-    console.log(formik.values);
+    */
+    //console.log(formik.values);
 
     const [value, setValue] = React.useState(null);
     const [inputValue, setInputValue] = React.useState('');
@@ -121,17 +124,17 @@ export default function GoogleMaps() {
             onChange={(event, newValue,value) => {
                 setOptions(newValue ? [newValue, ...options] : options);
                 setValue(newValue);
-                formik.setFieldValue("adresse", value, true);
+                props.formik.setFieldValue("adresse", newValue, true);
             }}
             onInputChange={(event, newInputValue) => {
                 setInputValue(newInputValue);
             }}
             renderInput={(params) => (
-                <CssTextField {...params} label="Adresse" name="adresse"
+                <TextField {...params} label="Adresse" name="adresse"
                            sx={{backgroundColor:'#fff',borderRadius:1}}
                            className="text-white"
-                           error={formik.touched['adresse'] && !!formik.errors['adresse']}
-                           helperText={formik.touched['adresse'] && formik.errors['adresse']}
+                           error={props.formik.touched['adresse'] && !!props.formik.errors['adresse']}
+                           helperText={props.formik.touched['adresse'] && props.formik.errors['adresse']}
                            fullWidth/>
 
             )}

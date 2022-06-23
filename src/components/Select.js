@@ -7,10 +7,23 @@ import * as React from "react";
 import GoogleMaps from "../pages/GoogleMaps";
 import {alpha, styled} from '@mui/material/styles';
 import {CssTextField} from "./CssTextField";
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
 
 const ville = Villes;
 
 const Select = () => {
+    const formik = useFormik({
+        initialValues: {
+            adresse: null,
+        },
+        validationSchema: Yup.object({
+            adresse: Yup.mixed().required('Champ obligatoire'),
+        }),
+        onSubmit: values => {
+            alert(JSON.stringify(values, null, 2));
+        },
+    })
 
     return (
 
@@ -46,7 +59,7 @@ const Select = () => {
                 />
             </FormControl>
             <div className="form-control w-full m-0">
-                <GoogleMaps/>
+                <GoogleMaps formik={formik}/>
             </div>
         </div>
     );

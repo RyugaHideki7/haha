@@ -4,18 +4,9 @@ import TextField from "@mui/material/TextField";
 import * as React from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-/*
-axios({
-    method: 'post',
-    url: '/addUser',
-    data: formik
-})
-    .then(function (response) {
-        console.log(response);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });*/
+import axios from "../Api/axios";
+//import { values } from "lodash";
+
 
 const Forgot =()=> {
     const formik = useFormik({
@@ -26,9 +17,22 @@ const Forgot =()=> {
             email: Yup.string().email('Adresse email invalide').required('Required'),
         }),
         onSubmit: values => {
+            console.log(values.email);
             alert(JSON.stringify(values, null, 2));
+
         },
     });
+
+
+    axios.post(`http://localhost:8080/api/account/reset-password/init?email=${formik.values.email}`,
+    )
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
     let navigate = useNavigate();
     return (
 
@@ -43,7 +47,7 @@ const Forgot =()=> {
                 <div className="grid area-fluid">
                     <div
                         className="w-10 h-10 rounded-full grid place-items-center mb-0 hover:-translate-y-1 hover:scale-110 duration-300">
-                        <a href="#" onClick={() => {
+                        <a href="/" onClick={() => {
                             navigate("/Signin")
                         }}>
                             <i className="iconly-Arrow-Left text-eerie-black text-3xl"></i>
@@ -55,6 +59,10 @@ const Forgot =()=> {
                     <div className="mt-5">
 
                         <TextField className="w-full" label="Email"
+                                   name="email"
+                                   type="email"
+                                   onChange={formik.handleChange}
+                                   value={formik.values.email}
                                    variant="outlined" {...formik.getFieldProps('email')}
                                    error={formik.touched.email && Boolean(formik.errors.email)}
                                    helperText={formik.touched.email && formik.errors.email}
@@ -63,6 +71,7 @@ const Forgot =()=> {
                     <div className="menu w-full menu-horizontal p-0">
 
                         <button
+                            type="submit"
                             className="btn w-full text-white text-xl font-light mt-5 bg-coral border-none hover:-translate-y-1 hover:scale-105 hover:bg-green-ish duration-300 normal-case ">Récuperer
                             mon compte
                         </button>

@@ -61,8 +61,8 @@ const Signuppro = () => {
             lastName: '',
             gender: '',
             birthday: null,
-            adresse: '',
-            specialite:[],
+            adresse: null,
+            specialite: [],
             email: '',
             username: '',
             password: '',
@@ -88,10 +88,11 @@ const Signuppro = () => {
             telephone: Yup.string()
                 .typeError('Doit être un chiffre')
                 .required("Champ obligatoire")
-                .max(10,"au plus 10 chiffres")
+                .max(10, "au plus 10 chiffres")
                 .matches(
                     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, "Numéro invalid"),
             username: Yup.string().required('Champ obligatoire'),
+            adresse: Yup.mixed().required('Champ obligatoire'),
 
         }),
 
@@ -119,9 +120,10 @@ const Signuppro = () => {
                 typeof value === 'string' ? value.split(',') : value,
             );
         };*/
-    const adr="Bordj Bou Arreridj, Algérie"
+    const adr = "Bordj Bou Arreridj, Algérie"
     return (
-        <div data-aos="fade-left" className="flex w-screen h-screen bg-gradient-to-r from-cyan-500 to-blue-500 justify-center items-center">
+        <div data-aos="fade-left"
+             className="flex w-screen h-screen bg-gradient-to-r from-cyan-500 to-blue-500 justify-center items-center">
             <div className="w-3/4 h-[87.5%] rounded-lg shadow-2xl bg-white flex flex-row">
                 <div className="w-full h-full">
                     <div
@@ -205,9 +207,10 @@ const Signuppro = () => {
                         </LocalizationProvider>
                     </div>
                     <div className="mt-5">
-                        <GoogleMaps name="adresse" {...formik.getFieldProps('adresse')}/>
+                        <GoogleMaps formik={formik}/>
+                        {console.log(formik.values)}
                         <div className="mt-5 h-[300px] w-full bg-coral rounded-lg flex justify-center items-center">
-                            <Maps adresse={adr}/>
+                            <Maps adresse={formik.values.adresse} />
                         </div>
                     </div>
                     <FormControl sx={{mt: 2.5,}} className="w-full">
@@ -227,7 +230,7 @@ const Signuppro = () => {
                                           label={option.job}
                                           size="medium"
                                           {...getTagProps({index})}
-                                         />
+                                    />
                                 ))
                             }
                             renderInput={(params) => (
@@ -268,6 +271,10 @@ const Signuppro = () => {
                     <div className="mt-5">
 
                         <TextField className="w-full" label="Email"
+                                   name="email"
+                                   type="email"
+                                   onChange={formik.handleChange}
+                                   value={formik.values.email}
                                    variant="outlined" {...formik.getFieldProps('email')}
                                    error={formik.touched.email && Boolean(formik.errors.email)}
                                    helperText={formik.touched.email && formik.errors.email}
@@ -293,8 +300,8 @@ const Signuppro = () => {
                                    name="password" {...formik.getFieldProps('password')}
                                    error={formik.touched.password && Boolean(formik.errors.password)}
                                    helperText={formik.touched.password && formik.errors.password}
-                                   color={((!(formik.touched.password && Boolean(formik.errors.password))) && formik.values.password !=='' && formik.values.confirmPassword !=='') ? 'success' : ''}
-                                   focused={((!(formik.touched.password && Boolean(formik.errors.password))) && formik.values.password !=='') ? !isfocused : isfocused}
+                                   color={((!(formik.touched.password && Boolean(formik.errors.password))) && formik.values.password !== '' && formik.values.confirmPassword !== '') ? 'success' : ''}
+                                   focused={((!(formik.touched.password && Boolean(formik.errors.password))) && formik.values.password !== '') ? !isfocused : isfocused}
                                    required/>
                     </div>
                     <div className="mt-5">
@@ -306,8 +313,8 @@ const Signuppro = () => {
                                    variant="outlined" {...formik.getFieldProps('confirmPassword')}
                                    error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
                                    helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-                                   color={((!(formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)))&& formik.values.confirmPassword !=='' && formik.values.password === formik.values.confirmPassword) ? 'success' : ''}
-                                   focused={((!(formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)))&& formik.values.confirmPassword !=='') ? !isfocused : isfocused}
+                                   color={((!(formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword))) && formik.values.confirmPassword !== '' && formik.values.password === formik.values.confirmPassword) ? 'success' : ''}
+                                   focused={((!(formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword))) && formik.values.confirmPassword !== '') ? !isfocused : isfocused}
                                    required/>
                     </div>
 
