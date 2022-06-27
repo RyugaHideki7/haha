@@ -40,6 +40,7 @@ module.exports = {
                 'emerald': '#1A936F',
                 'green-ish': '#6AD174',
                 'green-ish-hover': '#48b97a',
+                'green-tea': '#96c34b',
                 'carmine': '#D62246',
                 'blue-bell': '#8E8DBE',
                 'coral': '#E8505B',
@@ -47,6 +48,7 @@ module.exports = {
                 'kobi': '#F0A6CA',
                 'lavender': '#EFC3E6',
                 'purple-error': '#91a5f6',
+                'gray-dash':'#EBECF0',
 
 
             },

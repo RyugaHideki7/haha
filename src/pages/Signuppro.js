@@ -120,7 +120,6 @@ const Signuppro = () => {
                 typeof value === 'string' ? value.split(',') : value,
             );
         };*/
-    const adr = "Bordj Bou Arreridj, Algérie"
     return (
         <div data-aos="fade-left"
              className="flex w-screen h-screen bg-gradient-to-r from-cyan-500 to-blue-500 justify-center items-center">

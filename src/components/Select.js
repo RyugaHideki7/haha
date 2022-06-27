@@ -9,15 +9,41 @@ import {alpha, styled} from '@mui/material/styles';
 import {CssTextField} from "./CssTextField";
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
+import axios from '../Api/axios';
+import { Route, Switch, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const ville = Villes;
-
 const Select = () => {
+    const [posts, setPosts] = useState([]);
+    const history = useNavigate();
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get('/posts');
+                setPosts(response.data);
+            } catch (err) {
+                if (err.response) {
+                    // Not in the 200 response range
+                    console.log(err.response.data);
+                    console.log(err.response.status);
+                    console.log(err.response.headers);
+                } else {
+                    console.log(`Error: ${err.message}`);
+                }
+            }
+        }
+
+        fetchPosts();
+    }, [])
+
     const formik = useFormik({
         initialValues: {
+            nom:null,
             adresse: null,
         },
         validationSchema: Yup.object({
+            nom:Yup.mixed().required('Champ obligatoire'),
             adresse: Yup.mixed().required('Champ obligatoire'),
         }),
         onSubmit: values => {
@@ -31,14 +57,13 @@ const Select = () => {
             className="relative flex flex-row w-full divide-none place-items-center z-10 place-content-center gap-3">
             <FormControl className="w-full">
                 <Autocomplete
-                    multiple
                     id="size-small-filled-multi"
                     size="medium"
                     options={ville}
                     getOptionLabel={(option) => option.post_code + ', ' + option.wilaya_name_ascii + ', ' + option.commune_name_ascii}
                     renderTags={(value, getTagProps) =>
                         value.map((option, index) => (
-                            <Chip sx={{color: '#fff', backgroundColor: '#357DED'}}
+                            <Chip
                                   variant="outlined"
                                   label={option.post_code + ', ' + option.wilaya_name_ascii + ', ' + option.post_address_ascii}
                                   size="medium"
